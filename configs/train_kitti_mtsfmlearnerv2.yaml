@@ -1,0 +1,73 @@
+arch:
+  max_epochs: 20
+  seed: 11
+checkpoint:
+  filepath: /output/mtsfmlearnerv2/kitti_depth/
+datasets:
+  augmentation:
+    image_shape: (192, 640)
+    jittering: (0.2, 0.2, 0.2, 0.1)
+  test:
+    num_workers: 0
+    dataset:
+    - KITTI
+    depth_type:
+    - velodyne
+    path:
+    - /datasets/KITTI/raw_data/sync
+    split:
+    - data_splits/eigen_test_files.txt
+  train:
+    num_workers: 0
+    batch_size: 9
+    dataset:
+    - KITTI
+    depth_type:
+    - velodyne
+    path:
+    - /datasets/KITTI/raw_data/sync
+    split:
+    - data_splits/eigen_zhou_files.txt
+  validation:
+    num_workers: 0
+    dataset:
+    - KITTI
+    depth_type:
+    - velodyne
+    path:
+    - /datasets/KITTI/raw_data/sync
+    split:
+    - data_splits/eigen_val_files.txt
+    - data_splits/eigen_test_files.txt
+model:
+  depth_net:
+    name: DepthMTSfMLearner
+    transformer_features: 96
+    transformer_model: pvt-b4
+    version: pt
+  loss:
+    padding_mode: border
+  name: SelfSupModel
+  optimizer:
+    depth:
+      lr: 1e-5
+      weight_decay: 0.0
+      name: AdamW
+    pose:
+      lr: 1e-5
+      weight_decay: 0.0
+      name: AdamW
+  params:
+    crop: garg
+    max_depth: 80.0
+    min_depth: 0.0
+  pose_net:
+    name: PoseMTSfMLearner
+    transformer_model: pvt-b4
+    version: pt
+  pretrained_model_dir: /input/pretrained/
+  scheduler:
+    T_max: -1
+    gamma: 0.1
+    name: StepLR
+    step_size: 15
