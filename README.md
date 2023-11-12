@@ -52,7 +52,7 @@ If you find the code useful in your research, please consider citing our papers:
   booktitle={International Joint Conference on Computer Vision, Imaging and Computer Graphics, Revised Selected Papers},
   pages={281--303},
   year={2022},
-  doi={/10.1007/978-3-031-45725-8_14},
+  doi={10.1007/978-3-031-45725-8_14},
   organization={Springer Nature}
 }
 </pre>
